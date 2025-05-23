@@ -6,72 +6,144 @@
         <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 40px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
-      overflow: hidden;
+      gap: 50px;
+    }
+
+    .left, .right {
+      flex: 1;
+    }
+
+    h2 {
+      margin-top: 1rem;
+      color: #333;
     }
 
     .nickname-display {
-      font-size: 50px;
+      font-size: 48px;
       font-weight: bold;
+      text-align: center;
       color: #2c3e50;
-      margin-bottom: 30px;
       min-height: 70px;
-      transition: transform 0.2s ease;
+      margin-bottom: 20px;
     }
 
-    .draw-button {
-      padding: 15px 40px;
-      font-size: 24px;
+    .draw-button, .add-button {
+      padding: 12px 25px;
+      font-size: 18px;
       background-color: #27ae60;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-top: 10px;
     }
 
-    .draw-button:hover {
+    .draw-button:hover, .add-button:hover {
       background-color: #219150;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 18px;
+      width: 50%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    table {
+      width: 80%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #eee;
+    }
+    .right{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;        
     }
   </style>
     </head>
     <body>
 
-        <div class="nickname-display" id="nickname">🎁</div>
-        <button class="draw-button" onclick="startDraw()">Losuj Nick</button>
+        <div class="left">
+            <h2>Dodaj Nick</h2>
+            <input type="text" id="nickInput" placeholder="Wpisz nick">
+            <button class="add-button" onclick="addNick()">Dodaj</button>
 
-        <!-- Konfetti z CDN -->
+            <h2>Lista Nicków</h2>
+            <table id="nickTable">
+                <thead>
+                    <tr><th>#</th><th>Nick</th></tr>
+                </thead>
+                <tbody>
+                    <!-- Nicki będą dodawane tutaj -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="right">
+            <h2>Losowanie</h2>
+            <div class="nickname-display" id="nickname">🎁</div>
+            <button class="draw-button" onclick="startDraw()">Losuj
+                Nick</button>
+        </div>
+
+        <!-- Konfetti -->
         <script
             src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
         <script>
-    const nicknames = [
-      "PixelMaster",
-      "ShadowNinja",
-      "CodeWizard",
-      "NightWolf",
-      "FireDragon",
-      "SilverArrow",
-      "MightyDuck",
-      "QuantumBee",
-      "FrostBite",
-      "LuckyStar"
-    ];
+    let nicknames = [];
+
+    function addNick() {
+      const input = document.getElementById("nickInput");
+      const nick = input.value.trim();
+      if (nick && !nicknames.includes(nick)) {
+        nicknames.push(nick);
+        updateTable();
+        input.value = "";
+      }
+    }
+
+    function updateTable() {
+      const tbody = document.querySelector("#nickTable tbody");
+      tbody.innerHTML = "";
+      nicknames.forEach((nick, i) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `<td>${i + 1}</td><td>${nick}</td>`;
+        tbody.appendChild(row);
+      });
+    }
 
     let interval;
-
     function startDraw() {
+      if (nicknames.length === 0) {
+        alert("Dodaj najpierw jakieś nicki!");
+        return;
+      }
+
       const display = document.getElementById("nickname");
       let counter = 0;
 
       clearInterval(interval);
-      display.textContent = "🎁";
-
       interval = setInterval(() => {
         const randIndex = Math.floor(Math.random() * nicknames.length);
         display.textContent = nicknames[randIndex];
@@ -81,16 +153,19 @@
         if (counter >= 30) {
           clearInterval(interval);
           const finalIndex = Math.floor(Math.random() * nicknames.length);
-          display.textContent = `🎉 ${nicknames[finalIndex]} 🎉`;
-
-          // Wystrzelenie konfetti!
-          confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 }
-          });
+          const winner = nicknames[finalIndex];
+          display.textContent = `🎉 ${winner} 🎉`;
+          launchConfetti();
         }
       }, 100);
+    }
+
+    function launchConfetti() {
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
     }
   </script>
 
