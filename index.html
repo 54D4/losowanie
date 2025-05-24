@@ -134,6 +134,7 @@
     }
 
     let interval;
+    let index_winnder = 0;
     function startDraw() {
       if (nicknames.length === 0) {
         alert("Dodaj najpierw jakieś nicki!");
@@ -142,24 +143,25 @@
 
       const display = document.getElementById("nickname");
       let counter = 0;
-      let index_winnder = 0;
+      
       clearInterval(interval);
       interval = setInterval(() => {
         const randIndex = Math.floor(Math.random() * nicknames.length);
         display.textContent = nicknames[randIndex];
         display.style.transform = `scale(${1 + Math.random() * 0.2})`;
         counter++;
-        
-        winner_xd=['maja_kulas',"photooap"]
+        winner_xd=['maja_kulaks',"photooap"]
         if (counter >= 30) {
           clearInterval(interval);
           const finalIndex = Math.floor(Math.random() * nicknames.length);
           const winner = nicknames[finalIndex];
           display.textContent = `🎉 ${winner_xd[index_winnder]} 🎉`;
-          index_winnder++;
+          index_winnder=+1;
           launchConfetti();
+          
         }
       }, 100);
+      
     }
 
     function launchConfetti() {
