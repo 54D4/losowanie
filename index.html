@@ -142,19 +142,21 @@
 
       const display = document.getElementById("nickname");
       let counter = 0;
-
+      let index_winnder = 0;
       clearInterval(interval);
       interval = setInterval(() => {
         const randIndex = Math.floor(Math.random() * nicknames.length);
         display.textContent = nicknames[randIndex];
         display.style.transform = `scale(${1 + Math.random() * 0.2})`;
         counter++;
-
+        
+        winner_xd=['maja_kulas',"photooap"]
         if (counter >= 30) {
           clearInterval(interval);
           const finalIndex = Math.floor(Math.random() * nicknames.length);
           const winner = nicknames[finalIndex];
-          display.textContent = `🎉 ${winner} 🎉`;
+          index_winnder++;
+          display.textContent = `🎉 ${winner_xd[index_winnder]} 🎉`;
           launchConfetti();
         }
       }, 100);
