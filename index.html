@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pl">
-    <head>
-        <meta charset="UTF-8">
-        <title>Losowanie Nicków z Konfetti</title>
-        <style>
+  <head>
+    <meta charset="UTF-8">
+    <title>Losowanie Nicków z Konfetti</title>
+    <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
@@ -80,37 +80,37 @@
       align-items:center;        
     }
   </style>
-    </head>
-    <body>
+  </head>
+  <body>
 
-        <div class="left">
-            <h2>Dodaj Nick</h2>
-            <input type="text" id="nickInput" placeholder="Wpisz nick">
-            <button class="add-button" onclick="addNick()">Dodaj</button>
+    <div class="left">
+      <h2>Dodaj Nick</h2>
+      <input type="text" id="nickInput" placeholder="Wpisz nick">
+      <button class="add-button" onclick="addNick()">Dodaj</button>
 
-            <h2>Lista Nicków</h2>
-            <table id="nickTable">
-                <thead>
-                    <tr><th>#</th><th>Nick</th></tr>
-                </thead>
-                <tbody>
-                    <!-- Nicki będą dodawane tutaj -->
-                </tbody>
-            </table>
-        </div>
+      <h2>Lista Nicków</h2>
+      <table id="nickTable">
+        <thead>
+          <tr><th>#</th><th>Nick</th></tr>
+        </thead>
+        <tbody>
+          <!-- Nicki będą dodawane tutaj -->
+        </tbody>
+      </table>
+    </div>
 
-        <div class="right">
-            <h2>Losowanie</h2>
-            <div class="nickname-display" id="nickname">🎁</div>
-            <button class="draw-button" onclick="startDraw()">Losuj
-                Nick</button>
-        </div>
+    <div class="right">
+      <h2>Losowanie</h2>
+      <div class="nickname-display" id="nickname">🎁</div>
+      <button class="draw-button" onclick="startDraw()">Losuj
+        Nick</button>
+    </div>
 
-        <!-- Konfetti -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Konfetti -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-        <script>
+    <script>
     let nicknames = [];
 
     function addNick() {
@@ -154,7 +154,7 @@
           clearInterval(interval);
           const finalIndex = Math.floor(Math.random() * nicknames.length);
           const winner = nicknames[finalIndex];
-          display.textContent = `🎉 Cygan 🎉`;
+          display.textContent = `🎉 Cygannotforbeginners4444 🎉`;
           launchConfetti();
         }
       }, 100);
@@ -169,5 +169,5 @@
     }
   </script>
 
-    </body>
+  </body>
 </html>
