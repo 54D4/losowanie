@@ -150,12 +150,12 @@
         display.textContent = nicknames[randIndex];
         display.style.transform = `scale(${1 + Math.random() * 0.2})`;
         counter++;
-        winner_xd=['maja_kulaks',"photooap","cygi"]
+        
         if (counter >= 30) {
           clearInterval(interval);
           const finalIndex = Math.floor(Math.random() * nicknames.length);
           const winner = nicknames[finalIndex];
-          display.textContent = `🎉 ${winner_xd[index_winnder]} 🎉`;
+          display.textContent = `🎉 ${winner} 🎉`;
           index_winnder=+1;
           launchConfetti();
           
